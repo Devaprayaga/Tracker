@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilot Journey Tracker - Soar High!</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Your Pilot Journey to the Skies! ✈️</h1>
+        <p class="greeting">Hello Kunju! This tracker is for you, cheering you on every step of the way!</p>
+
+        <div class="overall-progress-section">
+            <h2>Overall Pilot Course Progress</h2>
+            <div class="progress-bar-container large">
+                <div class="progress-bar-fill" id="overallProgressBarFill"></div>
+                <span class="progress-percentage" id="overallProgressPercentage">0%</span>
+            </div>
+            <p class="progress-tagline">The sky is not the limit, it's home!</p>
+        </div>
+
+        <div class="tracker-sections-wrapper">
+            <div class="section main-course-section">
+                <h2>Main Course Milestones</h2>
+                <div class="progress-bar-container small">
+                    <div class="progress-bar-fill" id="mainCourseProgressBarFill"></div>
+                    <span class="progress-percentage small" id="mainCourseProgressPercentage">0%</span>
+                </div>
+                <ul id="mainCourseList" class="task-list">
+                    <li data-task="main_01">
+                        <input type="checkbox" id="main_01">
+                        <label for="main_01">Class 2 Medical Cleared</label>
+                    </li>
+                    <li data-task="main_02">
+                        <input type="checkbox" id="main_02">
+                        <label for="main_02">Class 1 Medical Cleared</label>
+                    </li>
+                    <li data-task="main_03">
+                        <input type="checkbox" id="main_03">
+                        <label for="main_03">ICAO Level 6 English Achieved</label>
+                    </li>
+                    <li data-task="main_04">
+                        <input type="checkbox" id="main_04">
+                        <label for="main_04">14 Theory Exams Completed</label>
+                    </li>
+                    <li data-task="main_05">
+                        <input type="checkbox" id="main_05">
+                        <label for="main_05">VFR Training Completed</label>
+                    </li>
+                    <li data-task="main_06">
+                        <input type="checkbox" id="main_06">
+                        <label for="main_06">IFR in Single-Engine (SE) Completed</label>
+                    </li>
+                    <li data-task="main_07">
+                        <input type="checkbox" id="main_07">
+                        <label for="main_07">IFR in Multi-Engine (ME) Completed</label>
+                    </li>
+                    <li data-task="main_08">
+                        <input type="checkbox" id="main_08">
+                        <label for="main_08">NVFR (Night VFR) Completed</label>
+                    </li>
+                    <li data-task="main_09">
+                        <input type="checkbox" id="main_09">
+                        <label for="main_09">MCC (Multi-Crew Cooperation) Completed</label>
+                    </li>
+                    <li data-task="main_10">
+                        <input type="checkbox" id="main_10">
+                        <label for="main_10">MEIR (Multi-Engine Instrument Rating) Completed</label>
+                    </li>
+                    <li data-task="main_11">
+                        <input type="checkbox" id="main_11">
+                        <label for="main_11">UPRT (Upset Prevention & Recovery Training) Completed</label>
+                    </li>
+                    <li data-task="main_12">
+                        <input type="checkbox" id="main_12">
+                        <label for="main_12">250 Hours of Flying Achieved</label>
+                    </li>
+                    <li data-task="main_13">
+                        <input type="checkbox" id="main_13">
+                        <label for="main_13">CPL Issued! You are a Pilot!</label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="section theory-exams-section">
+                <h2>14 Theory Exams</h2>
+                <div class="progress-bar-container small">
+                    <div class="progress-bar-fill" id="theoryProgressBarFill"></div>
+                    <span class="progress-percentage small" id="theoryProgressPercentage">0%</span>
+                </div>
+                <ul id="theoryExamsList" class="task-list">
+                    <li data-task="theory_01">
+                        <input type="checkbox" id="theory_01">
+                        <label for="theory_01">Aircraft General Knowledge</label>
+                    </li>
+                    <li data-task="theory_02">
+                        <input type="checkbox" id="theory_02">
+                        <label for="theory_02">Performance</label>
+                    </li>
+                    <li data-task="theory_03">
+                        <input type="checkbox" id="theory_03">
+                        <label for="theory_03">Radio Navigation</label>
+                    </li>
+                    <li data-task="theory_04">
+                        <input type="checkbox" id="theory_04">
+                        <label for="theory_04">General Navigation</label>
+                    </li>
+                    <li data-task="theory_05">
+                        <input type="checkbox" id="theory_05">
+                        <label for="theory_05">Mass and Balance</label>
+                    </li>
+                    <li data-task="theory_06">
+                        <input type="checkbox" id="theory_06">
+                        <label for="theory_06">Principles of Flight</label>
+                    </li>
+                    <li data-task="theory_07">
+                        <input type="checkbox" id="theory_07">
+                        <label for="theory_07">Air Law</label>
+                    </li>
+                    <li data-task="theory_08">
+                        <input type="checkbox" id="theory_08">
+                        <label for="theory_08">Flight Planning</label>
+                    </li>
+                    <li data-task="theory_09">
+                        <input type="checkbox" id="theory_09">
+                        <label for="theory_09">Human Performance and Limitations</label>
+                    </li>
+                    <li data-task="theory_10">
+                        <input type="checkbox" id="theory_10">
+                        <label for="theory_10">Instrumentation</label>
+                    </li>
+                    <li data-task="theory_11">
+                        <input type="checkbox" id="theory_11">
+                        <label for="theory_11">Operational Procedures</label>
+                    </li>
+                    <li data-task="theory_12">
+                        <input type="checkbox" id="theory_12">
+                        <label for="theory_12">Communications</label>
+                    </li>
+                    <li data-task="theory_13">
+                        <input type="checkbox" id="theory_13">
+                        <label for="theory_13">Meteorology</label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="section flying-hours-section">
+                <h2>Flying Hours Log</h2>
+                <p class="hours-target">Target: 250 Hours</p>
+                <div class="hours-input-group">
+                    <label for="flyingHoursInput">Current Hours Logged:</label>
+                    <input type="number" id="flyingHoursInput" min="0" max="250" value="0">
+                    <button id="updateHoursBtn">Update</button>
+                </div>
+                <div class="progress-bar-container small">
+                    <div class="progress-bar-fill" id="hoursProgressBarFill"></div>
+                    <span class="progress-percentage small" id="hoursProgressPercentage">0 Hours</span>
+                </div>
+                <p class="hours-remaining" id="hoursRemaining">250 Hours Remaining</p>
+            </div>
+        </div>
+
+        <p class="footer">Keep soaring high! Can't wait for my first ride with you! ❤️</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Select all necessary DOM elements ---
 
     // Overall Tracker Elements
-    const allCheckboxes = document.querySelectorAll('.task-list input[type="checkbox"]');
+    // const allCheckboxes = document.querySelectorAll('.task-list input[type="checkbox"]'); // This isn't needed globally, better to select within update functions if necessary
     const overallProgressBarFill = document.getElementById('overallProgressBarFill');
     const overallProgressPercentage = document.getElementById('overallProgressPercentage');
 
@@ -25,49 +25,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalHoursRequired = 250; // Define the target hours
 
     // --- Helper Function to Update Any Progress Bar ---
-    // This function takes:
-    // - `checkboxesToCount`: A NodeList of checkboxes relevant to this bar
-    // - `progressBarFillElement`: The div that represents the progress bar fill
-    // - `progressPercentageElement`: The span that displays the percentage text
-    // - `isOverall`: A boolean to indicate if it's the overall bar (for total tasks calculation)
-    // - `currentHours` (optional): For the hours tracker, the current value
-    // - `totalHours` (optional): For the hours tracker, the maximum target
-    function updateProgressBar(checkboxesToCount, progressBarFillElement, progressPercentageElement, type = 'checkbox', currentVal = 0, totalVal = 1) {
+    // Refactored to handle overall percentage directly
+    function updateProgressBar(fillElement, percentageElement, type, value, total = 1) {
         let percentage = 0;
         let displayValue = "";
 
         if (type === 'checkbox') {
-            const completedTasks = Array.from(checkboxesToCount).filter(cb => cb.checked).length;
-            const totalTasks = checkboxesToCount.length;
+            const completedTasks = Array.from(value).filter(cb => cb.checked).length; // `value` is now the checkboxes NodeList
+            const totalTasks = value.length;
             percentage = (totalTasks > 0) ? (completedTasks / totalTasks) * 100 : 0;
             displayValue = `${Math.round(percentage)}%`;
         } else if (type === 'hours') {
-            percentage = (totalVal > 0) ? (currentVal / totalVal) * 100 : 0;
-            displayValue = `${currentVal} Hours`;
+            percentage = (total > 0) ? (value / total) * 100 : 0; // `value` is current hours, `total` is totalHoursRequired
+            displayValue = `${value} Hours`;
+
             // Update remaining hours text for the flying hours tracker
             if (hoursRemainingText) {
-                const remaining = totalVal - currentVal;
+                const remaining = total - value;
                 hoursRemainingText.textContent = `${Math.max(0, remaining)} Hours Remaining`;
-                if (currentVal >= totalVal) {
-                    hoursRemainingText.textContent = "250 Hours Achieved! 🎉";
-                    hoursRemainingText.style.color = '#4CAF50'; // Green when complete
+                if (value >= total) {
+                    hoursRemainingText.textContent = `${total} Hours Achieved! 🎉`;
+                    hoursRemainingText.style.color = '#3CB371'; // Green when complete, use one of your theme's greens
                 } else {
-                     hoursRemainingText.style.color = '#007bff'; // Back to blue otherwise
+                    hoursRemainingText.style.color = '#BBDEFB'; // Back to theme's light blue otherwise
                 }
             }
+        } else if (type === 'overall') { // New logic for overall
+            percentage = value; // `value` is the calculated overallProgressPercentageValue
+            displayValue = `${Math.round(percentage)}%`;
         }
 
-        progressBarFillElement.style.width = `${percentage}%`;
-        progressPercentageElement.textContent = displayValue;
+        fillElement.style.width = `${percentage}%`;
+        percentageElement.textContent = displayValue;
 
         // Optional: Change color based on progress (customize for each bar if needed)
         // This makes the progress bar transition from red to yellow to green
         if (percentage < 30) {
-            progressBarFillElement.style.background = 'linear-gradient(to right, #B30000, #FF6666)'; // Deep Red to Muted Red
+            fillElement.style.background = 'linear-gradient(to right, #B30000, #FF6666)'; // Deep Red to Muted Red
         } else if (percentage < 70) {
-            progressBarFillElement.style.background = 'linear-gradient(to right, #FFCC00, #FFEA80)'; // Rich Gold to Soft Yellow
+            fillElement.style.background = 'linear-gradient(to right, #FFCC00, #FFEA80)'; // Rich Gold to Soft Yellow
         } else {
-            progressBarFillElement.style.background = 'linear-gradient(to right, #3CB371, #66CDAA)'; // Medium Sea Green to Aqua Green
+            fillElement.style.background = 'linear-gradient(to right, #3CB371, #66CDAA)'; // Medium Sea Green to Aqua Green
         }
     }
 
@@ -77,26 +75,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadCheckboxProgress(checkboxes) {
         checkboxes.forEach(checkbox => {
             const taskId = checkbox.id;
-            // Get data-task attribute for unique key if ID isn't unique enough (though it should be here)
-            // const dataTaskId = checkbox.getAttribute('data-task');
-            const isChecked = localStorage.getItem(taskId) === 'true'; // Use taskId as key
+            const isChecked = localStorage.getItem(taskId) === 'true';
             checkbox.checked = isChecked;
+            // Apply the strikethrough/dimming class based on loaded state
             if (isChecked) {
-                // Add the completed-label class to apply strikethrough/dimming
                 checkbox.nextElementSibling.classList.add('completed-label');
+            } else {
+                checkbox.nextElementSibling.classList.remove('completed-label');
             }
         });
     }
 
-    // Function to save checkbox states to localStorage
-    function saveCheckboxProgress(checkboxes) {
-        checkboxes.forEach(checkbox => {
-            localStorage.setItem(checkbox.id, checkbox.checked); // Use checkbox ID as key
-        });
-    }
-
-    // Add event listeners to all relevant checkboxes
-    allCheckboxes.forEach(checkbox => {
+    // Add event listeners to all checkboxes (main course + theory exams)
+    // We can iterate over allCheckboxes if you defined it, or specifically target both lists
+    // Let's use specific lists as they are already defined for clarity.
+    [...mainCourseCheckboxes, ...theoryExamsCheckboxes].forEach(checkbox => {
         checkbox.addEventListener('change', (event) => {
             // Apply/remove strikethrough class on label
             if (event.target.checked) {
@@ -109,11 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem(event.target.id, event.target.checked);
 
             // Update all relevant progress bars
-            updateMainCourseProgress();
-            updateTheoryProgress();
-            updateOverallProgress(); // Overall depends on others
+            updateMainCourseProgress(); // This will re-read states and update its bar
+            updateTheoryProgress();     // This will re-read states and update its bar
+            updateOverallProgress();    // Overall depends on others
         });
     });
+
 
     // --- Logic for Flying Hours Tracker ---
 
@@ -122,6 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedHours = localStorage.getItem('flyingHours');
         if (savedHours) {
             flyingHoursInput.value = parseFloat(savedHours);
+        } else {
+            flyingHoursInput.value = 0; // Initialize to 0 if no hours saved
         }
         updateFlyingHoursProgress(); // Update progress bar based on loaded hours
     }
@@ -140,65 +136,66 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         localStorage.setItem('flyingHours', currentHours); // Save hours
-        updateFlyingHoursProgress(); // Update progress bar
+        updateFlyingHoursProgress(); // Update hours progress bar
         updateOverallProgress(); // Update overall as well
     });
 
-    // Also update on input change (as they type, but button click is the main save)
-    flyingHoursInput.addEventListener('input', () => {
-        // We only save and update on button click for hours, but this is for visual feedback while typing
-        // Or you can remove this if you only want button click to update.
-    });
 
+    // --- Individual Progress Update Functions (called after state changes) ---
 
-    // --- Individual Progress Update Functions ---
-
+    // These functions now assume loadCheckboxProgress has already run once on page load
+    // and that the checkbox states are kept up-to-date by the event listener.
     function updateMainCourseProgress() {
-        loadCheckboxProgress(mainCourseCheckboxes); // Ensure states are loaded before calculating
-        updateProgressBar(mainCourseCheckboxes, mainCourseProgressBarFill, mainCourseProgressPercentage, 'checkbox');
+        updateProgressBar(mainCourseProgressBarFill, mainCourseProgressPercentage, 'checkbox', mainCourseCheckboxes);
     }
 
     function updateTheoryProgress() {
-        loadCheckboxProgress(theoryExamsCheckboxes); // Ensure states are loaded before calculating
-        updateProgressBar(theoryExamsCheckboxes, theoryProgressBarFill, theoryProgressPercentage, 'checkbox');
+        updateProgressBar(theoryProgressBarFill, theoryProgressPercentage, 'checkbox', theoryExamsCheckboxes);
     }
 
     function updateFlyingHoursProgress() {
-        const currentHours = parseFloat(flyingHoursInput.value);
-        updateProgressBar(null, hoursProgressBarFill, hoursProgressPercentage, 'hours', currentHours, totalHoursRequired);
+        const currentHours = parseFloat(localStorage.getItem('flyingHours') || 0); // Get latest saved hours
+        updateProgressBar(hoursProgressBarFill, hoursProgressPercentage, 'hours', currentHours, totalHoursRequired);
     }
 
-    // Overall Progress Function
+    // --- Overall Progress Function ---
     function updateOverallProgress() {
         // Calculate progress for each sub-tracker
         const mainCourseCompleted = Array.from(mainCourseCheckboxes).filter(cb => cb.checked).length;
         const mainCourseTotal = mainCourseCheckboxes.length;
-        const mainCourseWeight = 0.4; // Example weight: Main course milestones contribute 40%
+        const mainCourseProgress = (mainCourseTotal > 0) ? (mainCourseCompleted / mainCourseTotal) : 0;
+        const mainCourseWeight = 0.4; // Main course milestones contribute 40%
 
         const theoryExamsCompleted = Array.from(theoryExamsCheckboxes).filter(cb => cb.checked).length;
         const theoryExamsTotal = theoryExamsCheckboxes.length;
-        const theoryExamsWeight = 0.3; // Example weight: Theory exams contribute 30%
+        const theoryProgress = (theoryExamsTotal > 0) ? (theoryExamsCompleted / theoryExamsTotal) : 0;
+        const theoryExamsWeight = 0.3; // Theory exams contribute 30%
 
         const currentHours = parseFloat(localStorage.getItem('flyingHours') || 0); // Get saved hours
-        const hoursWeight = 0.3; // Example weight: Flying hours contribute 30%
-
-        // Calculate weighted progress
-        let weightedMainCourseProgress = (mainCourseTotal > 0) ? (mainCourseCompleted / mainCourseTotal) * mainCourseWeight : 0;
-        let weightedTheoryProgress = (theoryExamsTotal > 0) ? (theoryExamsCompleted / theoryExamsTotal) * theoryExamsWeight : 0;
-        let weightedHoursProgress = (totalHoursRequired > 0) ? (Math.min(currentHours, totalHoursRequired) / totalHoursRequired) * hoursWeight : 0;
+        const hoursProgress = (totalHoursRequired > 0) ? (Math.min(currentHours, totalHoursRequired) / totalHoursRequired) : 0;
+        const hoursWeight = 0.3; // Flying hours contribute 30%
 
         // Sum up all weighted progress to get overall progress
-        const overallProgressPercentageValue = (weightedMainCourseProgress + weightedTheoryProgress + weightedHoursProgress) * 100;
+        const overallProgressPercentageValue = (
+            (mainCourseProgress * mainCourseWeight) +
+            (theoryProgress * theoryExamsWeight) +
+            (hoursProgress * hoursWeight)
+        ) * 100;
 
         // Now update the overall progress bar using the helper function
-        // Note: For overall, we are passing a "dummy" total as it's not a direct checkbox count
-        updateProgressBar(null, overallProgressBarFill, overallProgressPercentage, 'overall', overallProgressPercentageValue, 100);
+        // Pass the calculated percentage directly
+        updateProgressBar(overallProgressBarFill, overallProgressPercentage, 'overall', overallProgressPercentageValue);
     }
 
 
-    // --- Initial Load (run once when page loads) ---
+    // --- Initial Load (run once when page loads to restore states and update all bars) ---
     loadCheckboxProgress(mainCourseCheckboxes); // Load main course states
     loadCheckboxProgress(theoryExamsCheckboxes); // Load theory exam states
     loadFlyingHours(); // Load flying hours
+    
+    // Call all update functions to display initial progress for all bars
+    updateMainCourseProgress();
+    updateTheoryProgress();
+    updateFlyingHoursProgress();
     updateOverallProgress(); // Calculate and display overall progress based on all loaded states
 });

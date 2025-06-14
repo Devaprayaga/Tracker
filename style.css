@@ -1,334 +1,284 @@
-/* General Body and Container Styling */
+/* --- General Body and Container Styling --- */
 body {
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg, #e0f2f7, #c1e8f2); /* Lighter, more airy blue gradient */
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Align to the top */
-    min-height: 100vh;
+    /* Background: Deep Navy to Deep Ocean Blue gradient */
+    background: linear-gradient(135deg, #0D0F1C, #1E2540);
+    color: #E0E7EB; /* Off-White / Very Light Grey for default text */
+    font-family: 'Open Sans', sans-serif; /* Body font for most text */
     margin: 0;
-    padding: 25px; /* More padding */
-    color: #333;
-    box-sizing: border-box;
+    padding: 20px;
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: flex-start; /* Align content to the top vertically */
+    min-height: 100vh; /* Ensure body takes at least full viewport height */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    overflow-y: auto; /* Allow scrolling if content overflows */
 }
 
 .container {
-    background-color: #ffffff;
-    padding: 35px 50px; /* Increased padding */
-    border-radius: 20px; /* More rounded corners */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* More prominent shadow */
-    width: 100%;
-    max-width: 1000px; /* Wider container */
-    text-align: center;
-    margin-top: 30px;
-    position: relative; /* For potential future absolute positioning */
+    /* Container/Card Background: Slightly lighter, semi-transparent deep blue */
+    background-color: rgba(28, 38, 60, 0.9);
+    padding: 30px 40px;
+    border-radius: 25px; /* Softer, more rounded corners for elegance */
+    /* Stronger, deeper shadow and subtle inner glow for depth */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7),
+                0 0 15px rgba(255, 255, 255, 0.05) inset;
+    width: 90%; /* Responsive width */
+    max-width: 750px; /* Maximum width for readability on large screens */
+    margin: 20px auto; /* Center the container with vertical margin */
+    border: 1px solid rgba(40, 55, 80, 0.6); /* Subtle border for definition */
+    box-sizing: border-box;
 }
 
+/* --- Headings & Taglines --- */
 h1 {
-    font-family: 'Orbitron', sans-serif; /* Use Orbitron for main title */
-    color: #0056b3;
-    margin-bottom: 25px;
-    font-weight: 700;
-    font-size: 3em; /* Larger title */
-    letter-spacing: 1px;
+    font-family: 'Lora', serif; /* Elegant serif for the main title */
+    color: #BBDEFB; /* Light Blue / Sky Blue for contrast */
+    font-size: 3em; /* Larger main title for prominence */
+    text-align: center;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); /* Deeper shadow for perceived depth */
 }
 
-.greeting {
-    font-size: 1.2em; /* Slightly larger greeting */
-    color: #555;
-    margin-bottom: 40px; /* More space */
-    font-style: italic;
+.greeting,
+.progress-tagline,
+.footer p { /* Applying consistent style to greeting, tagline, and footer text */
+    font-family: 'Open Sans', sans-serif; /* Consistent body font for readability */
+    color: #C0CDE2; /* Slightly softer blue than main text, for encouraging tone */
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 25px; /* More vertical space below these elements */
+    font-size: 1.15em; /* Slightly larger text for emphasis */
+    line-height: 1.5; /* Good line spacing for readability */
 }
 
-/* Overall Progress Section Specific Styling */
-.overall-progress-section {
-    background-color: #e6f7ff; /* Light blue background */
-    padding: 30px;
-    border-radius: 15px;
-    margin-bottom: 40px;
-    box-shadow: inset 0 0 15px rgba(0, 123, 255, 0.1); /* Subtle inner shadow */
-}
-
-.overall-progress-section h2 {
-    font-size: 2em;
-    color: #007bff;
-    margin-top: 0;
+.section h2 {
+    font-family: 'Lora', serif; /* Consistent elegant serif for section titles */
+    color: #BBDEFB; /* Matches H1 color for consistent hierarchy */
+    font-size: 2.2em; /* Larger section titles */
+    margin-top: 40px; /* More space above new sections */
     margin-bottom: 20px;
+    border-bottom: 1px solid rgba(187, 222, 251, 0.2); /* Subtle light blue separator line */
+    padding-bottom: 8px; /* Padding for the separator line */
+    text-align: center;
 }
 
-.progress-tagline {
-    font-size: 1.1em;
-    color: #666;
-    margin-top: 20px;
-    font-weight: 500;
-}
-
-/* Progress Bar Styles (General and Sizing) */
+/* --- Progress Bars --- */
 .progress-bar-container {
-    background-color: #e0e0e0;
-    border-radius: 15px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.progress-bar-container.large {
-    width: 80%; /* Wider for overall bar */
-    height: 40px; /* Taller for overall bar */
-    margin: 0px auto; /* Centered */
-}
-
-.progress-bar-container.small {
-    width: 95%; /* Slightly narrower for individual trackers */
-    height: 25px; /* Shorter for individual trackers */
-    margin: 20px auto 30px auto; /* Centered with top/bottom margin */
+    background-color: rgba(255, 255, 255, 0.12); /* Slightly more prominent translucent white background */
+    border-radius: 12px; /* Slightly more rounded corners for the bar container */
+    overflow: hidden; /* Ensures the fill stays within rounded corners */
+    height: 28px; /* Slightly taller bar for visual impact */
+    margin-bottom: 25px;
+    border: 1px solid rgba(187, 222, 251, 0.25); /* More visible light blue border */
+    position: relative; /* Needed for positioning the percentage text inside */
 }
 
 .progress-bar-fill {
     height: 100%;
-    width: 0%; /* Initial width */
-    background: linear-gradient(to right, #4CAF50, #8bc34a); /* Default green gradient */
-    border-radius: 15px;
-    transition: width 0.5s ease-in-out, background 0.5s ease-in-out; /* Smooth transition for color too */
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Align percentage to the right of the fill */
+    width: 0%; /* Initial width before JS calculates progress */
+    /* Default background - this will be overridden by JS based on percentage */
+    background: linear-gradient(to right, #3CB371, #66CDAA); /* A default green for initial state */
+    border-radius: 12px; /* Match container border-radius */
+    transition: width 0.9s ease-in-out, background 0.9s ease-in-out; /* Slower, smoother animation */
 }
 
 .progress-percentage {
-    position: absolute;
+    color: #BBDEFB; /* Light blue for percentage text */
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif; /* Consistent body font for readability */
+    position: absolute; /* Position text absolutely within its container */
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    color: #333;
-    font-weight: 700;
-    font-family: 'Orbitron', sans-serif; /* Orbitron for percentage */
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%); /* Center the text perfectly */
+    z-index: 1; /* Ensure text is above the progress bar fill */
+    text-shadow: 0 0 5px rgba(0,0,0,0.7); /* Subtle shadow for text readability over fill */
 }
 
-.progress-percentage.small {
-    font-size: 1em; /* Smaller font for individual percentages */
-}
+/* Specific sizing for different progress bars */
+.progress-bar-container.overall { height: 45px; } /* Taller overall progress bar */
+.progress-percentage.overall { font-size: 1.8em; } /* Larger percentage for overall progress */
+.progress-bar-container.small { height: 24px; } /* Smaller height for sub-section bars */
+.progress-percentage.small { font-size: 1em; } /* Standard font size for sub-section percentages */
 
-/* Main Tracker Sections Layout */
-.tracker-sections-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Center align sections */
-    gap: 30px; /* Space between sections */
-    margin-top: 30px;
-}
 
-.section {
-    background-color: #fcfcfc; /* Very light background for sections */
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Softer shadow */
-    flex: 1 1 calc(33.333% - 30px); /* Three columns, accounting for gap */
-    min-width: 300px; /* Minimum width for sections */
-    text-align: left;
-    display: flex; /* Use flexbox for internal layout */
-    flex-direction: column; /* Stack contents vertically */
-    justify-content: space-between; /* Push footer to bottom */
-}
-
-/* Specific Section Titles */
-.section h2 {
-    color: #007bff;
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-weight: 600;
-    font-size: 1.8em;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 10px;
-}
-
-/* Task List (Checkboxes) Styling */
+/* --- Task List Items (Milestones & Exams) --- */
 .task-list {
-    list-style: none;
+    list-style: none; /* Remove default list bullets */
     padding: 0;
-    margin: 0 0 20px 0; /* Add margin at bottom for separation */
-    flex-grow: 1; /* Allow list to grow and fill space */
-}
-
-.task-list li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    cursor: pointer;
-    font-size: 1.1em;
-    color: #444;
-    transition: transform 0.2s ease-in-out; /* Subtle hover effect */
-}
-
-.task-list li:hover {
-    transform: translateX(5px); /* Move slightly on hover */
-}
-
-.task-list input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 28px; /* Slightly larger checkbox */
-    height: 28px;
-    border: 2px solid #007bff;
-    border-radius: 7px; /* More rounded */
-    cursor: pointer;
-    position: relative;
-    margin-right: 15px;
-    transition: all 0.2s ease-in-out;
-    flex-shrink: 0;
-    background-color: #f0f8ff; /* Light background for unchecked */
-}
-
-.task-list input[type="checkbox"]:checked {
-    background-color: #007bff;
-    border-color: #007bff;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Glowing effect when checked */
-}
-
-.task-list input[type="checkbox"]:checked::after {
-    content: '✔';
-    color: white;
-    font-size: 20px; /* Larger checkmark */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.task-list label {
-    cursor: pointer;
-    user-select: none;
-    transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out;
-}
-
-.task-list label.completed-label { /* Use this class added by JS */
-    color: #888;
-    text-decoration: line-through;
-}
-
-/* Flying Hours Section Specific Styling */
-.flying-hours-section .hours-target {
-    font-size: 1.1em;
-    color: #666;
-    margin-bottom: 20px;
-}
-
-.flying-hours-section .hours-input-group {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.flying-hours-section label {
-    font-weight: 500;
-    color: #333;
-    margin-right: 5px;
-}
-
-.flying-hours-section input[type="number"] {
-    width: 80px; /* Fixed width for input */
-    padding: 10px;
-    border: 2px solid #007bff;
-    border-radius: 8px;
-    font-size: 1.1em;
-    text-align: center;
-    appearance: textfield;
-    -moz-appearance: textfield; /* Hide arrows in Firefox */
-}
-
-.flying-hours-section input[type="number"]::-webkit-outer-spin-button,
-.flying-hours-section input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
     margin: 0;
 }
 
-.flying-hours-section button {
-    padding: 10px 18px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
+.task-list li {
+    background-color: rgba(255, 255, 255, 0.08); /* Slightly more prominent translucent background for list items */
+    padding: 15px 20px; /* More internal padding */
+    margin-bottom: 12px; /* More vertical space between list items */
+    border-radius: 10px; /* Slightly more rounded list items */
+    display: flex; /* Use flexbox for alignment of checkbox and label */
+    align-items: center; /* Vertically align items in the middle */
+    border: 1px solid rgba(187, 222, 251, 0.15); /* More defined light blue border */
+    transition: background-color 0.3s ease, transform 0.25s ease, box-shadow 0.25s ease; /* Smooth hover transitions */
+}
+
+.task-list li:hover {
+    background-color: rgba(255, 255, 255, 0.15); /* More noticeable hover background */
+    transform: translateY(-4px); /* Slightly more lift on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4); /* Add a subtle shadow on hover for depth */
+}
+
+/* Custom Checkbox Styling */
+.task-list input[type="checkbox"] {
+    appearance: none; /* Hide default checkbox styles */
+    -webkit-appearance: none; /* For WebKit browsers (Chrome, Safari) */
+    width: 25px; /* Larger checkbox size */
+    height: 25px;
+    border: 2px solid #5DADE2; /* Vibrant sky blue for the checkbox border */
+    border-radius: 6px; /* Slightly rounded checkbox shape */
+    cursor: pointer; /* Indicate it's clickable */
+    margin-right: 20px; /* Space between checkbox and label */
+    position: relative; /* For positioning the custom checkmark */
+    outline: none; /* Remove outline on focus */
+    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition for color changes */
+}
+
+.task-list input[type="checkbox"]:checked {
+    background-color: #5DADE2; /* Vibrant sky blue for checked background */
+    border-color: #5DADE2; /* Match border color when checked */
+}
+
+/* Custom Checkmark (using pseudo-element) */
+.task-list input[type="checkbox"]:checked::after {
+    content: '✔'; /* Unicode checkmark character */
+    font-size: 18px; /* Larger checkmark size */
+    color: #E0E7EB; /* Light text color for the checkmark */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the checkmark */
+}
+
+.task-list label {
+    font-size: 1.15em; /* Slightly larger label text */
+    color: #BBDEFB; /* Light blue for labels */
     cursor: pointer;
-    font-size: 1.1em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    flex-grow: 1; /* Allows label to take available space */
 }
 
-.flying-hours-section button:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
+.task-list input[type="checkbox"]:checked + label {
+    text-decoration: line-through; /* Strikethrough for completed tasks */
+    color: #8FA0BC; /* Muted Blue-Grey for completed tasks */
 }
 
-.hours-remaining {
-    margin-top: 15px;
-    font-weight: 600;
-    color: #007bff;
-    font-size: 1.2em;
+/* --- Flying Hours Controls --- */
+.hours-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the input and button */
+    gap: 15px; /* Space between input and button elements */
+    margin-top: 20px;
+    margin-bottom: 20px; /* Add some space below the controls */
 }
 
-
-/* Footer Styling */
-.footer {
-    margin-top: 50px;
-    font-style: italic;
-    color: #666;
-    font-size: 1em;
-    border-top: 1px solid #eee; /* Subtle line above footer */
-    padding-top: 20px;
+.hours-controls label {
+    font-size: 1.15em;
+    color: #BBDEFB; /* Light blue for the label */
+    margin-right: 0; /* Override default margin if any, gap handles spacing */
 }
 
-/* Responsive Adjustments */
-@media (max-width: 992px) {
-    .tracker-sections-wrapper {
-        flex-direction: column; /* Stack sections vertically */
-        align-items: center; /* Center them */
-    }
+input[type="number"] {
+    background-color: #1E2540; /* Deep ocean blue, matches body dark part */
+    border: 1px solid #5DADE2; /* Vibrant sky blue border */
+    border-radius: 10px; /* More rounded input field */
+    padding: 12px 18px; /* More internal padding */
+    color: #E0E7EB; /* Light text color for input numbers */
+    font-size: 1.1em; /* Larger font size for input */
+    width: 150px; /* Fixed width for the input field */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus effect */
+}
 
-    .section {
-        flex: 1 1 90%; /* Take up more width */
-        max-width: 500px; /* Limit max width for readability */
-        margin-bottom: 30px;
-    }
+input[type="number"]:focus {
+    border-color: #BBDEFB; /* Lighter blue on focus */
+    box-shadow: 0 0 10px rgba(187, 222, 251, 0.5); /* More prominent soft glow on focus */
+    outline: none; /* Remove default browser outline */
+}
 
+button {
+    background-color: #5DADE2; /* Vibrant sky blue for buttons */
+    color: #0D0F1C; /* Very dark text on button for strong contrast */
+    border: none;
+    border-radius: 10px; /* More rounded button shape */
+    padding: 12px 25px; /* More internal padding */
+    font-size: 1.1em; /* Larger font size for button text */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.15s ease, box-shadow 0.15s ease; /* Smooth hover transitions */
+    font-weight: bold; /* Bold text for buttons */
+}
+
+button:hover {
+    background-color: #7BBFF2; /* Slightly lighter blue on hover */
+    transform: translateY(-3px); /* More noticeable lift on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4); /* Add shadow on hover for depth */
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
     .container {
-        padding: 30px;
+        padding: 20px 25px;
+        border-radius: 15px; /* Slightly less rounded on smaller screens */
     }
-}
 
-@media (max-width: 600px) {
     h1 {
         font-size: 2.2em;
     }
 
-    .greeting {
-        font-size: 1em;
+    .section h2 {
+        font-size: 1.6em;
+        margin-top: 30px;
+        margin-bottom: 15px;
     }
 
-    .section {
-        padding: 20px;
+    .greeting,
+    .progress-tagline,
+    .footer p {
+        font-size: 1em;
+        margin-bottom: 15px;
     }
 
     .task-list li {
-        font-size: 1em;
+        padding: 10px 15px;
+        margin-bottom: 8px;
+        border-radius: 8px;
     }
 
     .task-list input[type="checkbox"] {
-        width: 24px;
-        height: 24px;
-    }
-    .task-list input[type="checkbox"]:checked::after {
-        font-size: 16px;
+        width: 20px;
+        height: 20px;
+        margin-right: 15px;
     }
 
-    .flying-hours-section .hours-input-group {
-        flex-direction: column;
-        gap: 15px;
+    .task-list input[type="checkbox"]:checked::after {
+        font-size: 14px;
     }
-    .flying-hours-section input[type="number"],
-    .flying-hours-section button {
-        width: 100%;
-        max-width: 200px; /* Constrain width on small screens */
+
+    .task-list label {
+        font-size: 1em;
+    }
+
+    .progress-bar-container.overall { height: 35px; }
+    .progress-percentage.overall { font-size: 1.4em; }
+
+    .hours-controls {
+        flex-direction: column; /* Stack input and button vertically */
+        align-items: center;
+        gap: 10px;
+    }
+    .hours-controls label {
+        margin-bottom: 5px;
+    }
+    input[type="number"] {
+        width: 80%; /* Make input wider on small screens */
+    }
+    button {
+        width: 80%; /* Make button wider on small screens */
     }
 }

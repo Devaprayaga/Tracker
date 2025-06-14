@@ -63,11 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Optional: Change color based on progress (customize for each bar if needed)
         // This makes the progress bar transition from red to yellow to green
         if (percentage < 30) {
-            progressBarFillElement.style.background = 'linear-gradient(to right, #ff6b6b, #ffa07a)'; // Reddish
+            progressBarFillElement.style.background = 'linear-gradient(to right, #B30000, #FF6666)'; // Deep Red to Muted Red
         } else if (percentage < 70) {
-            progressBarFillElement.style.background = 'linear-gradient(to right, #ffcc00, #ffdb58)'; // Yellowish
+            progressBarFillElement.style.background = 'linear-gradient(to right, #FFCC00, #FFEA80)'; // Rich Gold to Soft Yellow
         } else {
-            progressBarFillElement.style.background = 'linear-gradient(to right, #4CAF50, #8bc34a)'; // Greenish
+            progressBarFillElement.style.background = 'linear-gradient(to right, #3CB371, #66CDAA)'; // Medium Sea Green to Aqua Green
         }
     }
 
